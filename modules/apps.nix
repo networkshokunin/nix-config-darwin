@@ -39,10 +39,11 @@
       Whatsapp = 310633997;
       PurePaste = 1611378436;
       OnepasswordSafari = 1569813296;
-      Readwise = 1640236961;
       Dato = 1470584107;
       Things3 = 904280696;
-      Anybox = 1593408455;
+      Raindrop = 1549370672;
+      Wireguard = 1451685025;
+      WirelessSGx = 1449928544;
     };
 
     taps = [
@@ -79,6 +80,9 @@
       "karabiner-elements"
       "obsidian"
       "firefox"
+      "cleanclip"
+      "openinterminal"
+      "ledger-live"
     ];
   };
 }
