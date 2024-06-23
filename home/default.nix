@@ -9,6 +9,8 @@ in {
     ./openssh.nix
     ./mackup.nix
     ./kitty.nix
+    ./nnn.nix
+    ./direnv.nix
   ];
 
   # Home Manager needs a bit of information about you and the
@@ -16,7 +18,7 @@ in {
   home = {
     username = "${user}";
     homeDirectory = lib.mkForce "/Users/${user}";
-    stateVersion = "23.11";
+    stateVersion = "24.05";
 
     file.yabai = {
             executable = true;

@@ -9,6 +9,7 @@
     fx
 
     # misc
+    age
     which
     tree
     gnused
@@ -21,7 +22,9 @@
     zsh-fzf-tab
     php
     autojump
+    e2fsprogs
     alejandra
+    sops
   ];
 
   programs = {
@@ -29,7 +32,7 @@
       enable = true;
       enableCompletion = true;
       completionInit = "autoload -U compinit && compinit\nsource ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh";
-      enableAutosuggestions = true;
+      autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       initExtra = ''
         #pyenv
@@ -69,7 +72,7 @@
     # useful in bash/zsh prompt, not in nushell.
     eza = {
       enable = true;
-      enableAliases = true;
+      enableZshIntegration = false;
       git = true;
       icons = true;
     };

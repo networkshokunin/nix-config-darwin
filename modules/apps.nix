@@ -44,6 +44,7 @@
       Raindrop = 1549370672;
       Wireguard = 1451685025;
       WirelessSGx = 1449928544;
+      CommandX = 6448461551;
     };
 
     taps = [
@@ -59,12 +60,13 @@
       "goenv"
       "php"
       #"mackup"
-      "yabai"
+      #"yabai"
     ];
 
     # `brew install --cask`
     # TODO Feel free to add your favorite apps here.
     casks = [
+      "rectangle"
       "visual-studio-code"
       "1password"
       "1password-cli"
@@ -83,6 +85,9 @@
       "cleanclip"
       "openinterminal"
       "ledger-live"
+      "topnotch"
+      "raindropio"
+      "elgato-stream-deck"
     ];
   };
 }

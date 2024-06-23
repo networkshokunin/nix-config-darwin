@@ -22,7 +22,8 @@ in {
       {path = "/Applications/Signal.app/";}
       {path = "/Applications/WhatsApp.app";}
       {path = "/System/Applications/Messages.app";}
-      {path = "/Applications/Things3.app";}
+      {path = "/Applications/Things3.app";} 
+      {path = "/Applications/Raindrop.io.app";}
       # https://github.com/kcrawford/dockutil/issues/144
       {path = "/Applications/App Store.app";}
       {path = "/Applications/System Settings.app";}
