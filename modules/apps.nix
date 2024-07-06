@@ -45,6 +45,7 @@
       Wireguard = 1451685025;
       WirelessSGx = 1449928544;
       CommandX = 6448461551;
+      SinkItForReddit = 6449873635;
     };
 
     taps = [
