@@ -11,71 +11,31 @@
 ###################################################################################
 {
   system = {
+    stateVersion = 4;
     # activationScripts are executed every time you boot the system or run `nixos-rebuild` / `darwin-rebuild`.
+    #https://superuser.com/questions/1211108/remove-osx-spotlight-keyboard-shortcut-from-command-line
     activationScripts.postUserActivation.text = ''
-      #https://superuser.com/questions/1211108/remove-osx-spotlight-keyboard-shortcut-from-command-line
-      # target output for AppleSymbolicHotKeys:64
-      #
-      # <key>64</key>
-      # <dict>
-      #   <key>enabled</key>
-      #   <false/>
-      #   <key>value</key>
-      #   <dict>
-      #     <key>parameters</key>
-      #     <array>
-      #       <integer>65535</integer>
-      #       <integer>49</integer>
-      #       <integer>1048576</integer>
-      #     </array>
-      #     <key>type</key>
-      #     <string>standard</string>
-      #   </dict>
-      # </dict>
-
       /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.symbolichotkeys.plist \
-        -c "Delete :AppleSymbolicHotKeys:64" \
-        -c "Add :AppleSymbolicHotKeys:64:enabled bool false" \
-        -c "Add :AppleSymbolicHotKeys:64:value:parameters array" \
-        -c "Add :AppleSymbolicHotKeys:64:value:parameters: integer 65535" \
-        -c "Add :AppleSymbolicHotKeys:64:value:parameters: integer 49" \
-        -c "Add :AppleSymbolicHotKeys:64:value:parameters: integer 1048576" \
-        -c "Add :AppleSymbolicHotKeys:64:type string standard"
+        -c "Set :AppleSymbolicHotKeys:64:enabled bool false" \
+        -c "Set :AppleSymbolicHotKeys:65:enabled bool false" \
+        -c "Set :AppleSymbolicHotKeys:184:enabled bool false" \
+        -c "Set :AppleSymbolicHotKeys:28:enabled bool false" \
+        -c "Set :AppleSymbolicHotKeys:29:enabled bool false" \
+        -c "Set :AppleSymbolicHotKeys:30:enabled bool false" \
+        -c "Set :AppleSymbolicHotKeys:31:enabled bool false" 
 
-      # target output for AppleSymbolicHotKeys:65
-      #
-      # <key>65</key>
-      # <dict>
-      #   <key>enabled</key>
-      #   <false/>
-      #   <key>value</key>
-      #   <dict>
-      #     <key>parameters</key>
-      #     <array>
-      #       <integer>65535</integer>
-      #       <integer>49</integer>
-      #       <integer>1572864</integer>
-      #     </array>
-      #     <key>type</key>
-      #     <string>standard</string>
-      #   </dict>
-      # </dict>
-
-      /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.symbolichotkeys.plist \
-        -c "Delete :AppleSymbolicHotKeys:65" \
-        -c "Add :AppleSymbolicHotKeys:65:enabled bool false" \
-        -c "Add :AppleSymbolicHotKeys:65:value:parameters array" \
-        -c "Add :AppleSymbolicHotKeys:65:value:parameters: integer 65535" \
-        -c "Add :AppleSymbolicHotKeys:65:value:parameters: integer 49" \
-        -c "Add :AppleSymbolicHotKeys:65:value:parameters: integer 1572864" \
-        -c "Add :AppleSymbolicHotKeys:65:type string standard"
+      #64, 65 - spolight shortcuts
+      #184,28,29,30,31 - screenshot shortcuts
       defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
+
       # activateSettings -u will reload the settings from the database and apply them to the current session,
       # so we do not need to logout and login again to make the changes take effect.
+
       /System/Library/PrivateFrameworks/SystemAdministration.framework/Resources/activateSettings -u
     '';
 
     defaults = {
+      #use Dato
       menuExtraClock.IsAnalog = true; # Show an analog clock instead of a digital one
 
       # customize dock
@@ -193,9 +153,11 @@
           AutoFillFromAddressBook = false;
           AutoFillCreditCardData = false;
           AutoFillMiscellaneousForms = false;
+          AutoFillPasswords = false;
           WarnAboutFraudulentWebsites = true;
           WebKitJavaEnabled = false;
           WebKitJavaScriptCanOpenWindowsAutomatically = false;
+          Homepage = "about:blank";
           "com.apple.Safari.ContentPageGroupIdentifier.WebKit2TabsToLinks" = true;
           "com.apple.Safari.ContentPageGroupIdentifier.WebKit2DeveloperExtrasEnabled" = true;
           "com.apple.Safari.ContentPageGroupIdentifier.WebKit2BackspaceKeyNavigationEnabled" = false;
@@ -258,10 +220,7 @@
     pkgs.zsh
   ];
 
-  # Set your time zone.
-  # comment this due to the issue:
-  #   https://github.com/LnL7/nix-darwin/issues/359
-  # time.timeZone = "Asia/singapore";
+  time.timeZone = "Asia/singapore";
 
   # Fonts
   fonts = {
