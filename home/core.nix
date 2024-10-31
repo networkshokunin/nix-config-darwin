@@ -25,6 +25,7 @@
     e2fsprogs
     alejandra
     sops
+    _1password-gui
   ];
 
   programs = {

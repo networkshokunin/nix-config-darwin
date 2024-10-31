@@ -35,6 +35,7 @@
           ./modules/system.nix
           ./modules/apps.nix
           ./modules/dock.nix
+          #./modules/nix-darwin-activation.nix
 
           # home manager
           home-manager.darwinModules.home-manager

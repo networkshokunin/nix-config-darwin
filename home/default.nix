@@ -8,7 +8,7 @@ in {
     ./git.nix
     ./openssh.nix
     #./mackup.nix
-    #./kitty.nix
+    ./kitty.nix
     #./nnn.nix
     ./direnv.nix
   ];
