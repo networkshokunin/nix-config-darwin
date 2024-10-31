@@ -13,18 +13,17 @@
   system = {
     stateVersion = 4;
     # activationScripts are executed every time you boot the system or run `nixos-rebuild` / `darwin-rebuild`.
-    #https://superuser.com/questions/1211108/remove-osx-spotlight-keyboard-shortcut-from-command-line
+    # https://superuser.com/questions/1211108/remove-osx-spotlight-keyboard-shortcut-from-command-line
     activationScripts.postUserActivation.text = ''
       /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.symbolichotkeys.plist \
-        -c "Set :AppleSymbolicHotKeys:64:enabled bool false" \
-        -c "Set :AppleSymbolicHotKeys:65:enabled bool false" \
-        -c "Set :AppleSymbolicHotKeys:184:enabled bool false" \
-        -c "Set :AppleSymbolicHotKeys:28:enabled bool false" \
-        -c "Set :AppleSymbolicHotKeys:29:enabled bool false" \
-        -c "Set :AppleSymbolicHotKeys:30:enabled bool false" \
-        -c "Set :AppleSymbolicHotKeys:31:enabled bool false" 
+        -c "Set AppleSymbolicHotKeys:52:enabled bool false" \
+        -c "Set AppleSymbolicHotKeys:184:enabled bool false" \
+        -c "Set AppleSymbolicHotKeys:28:enabled bool false" \
+        -c "Set AppleSymbolicHotKeys:29:enabled bool false" \
+        -c "Set AppleSymbolicHotKeys:30:enabled bool false" \
+        -c "Set AppleSymbolicHotKeys:31:enabled bool false" 
 
-      #64, 65 - spolight shortcuts
+      #52 - spolight shortcuts
       #184,28,29,30,31 - screenshot shortcuts
       defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
 
@@ -36,7 +35,7 @@
 
     defaults = {
       #use Dato
-      menuExtraClock.IsAnalog = true; # Show an analog clock instead of a digital one
+      menuExtraClock.IsAnalog = true;
 
       # customize dock
       dock = {
@@ -220,7 +219,7 @@
     pkgs.zsh
   ];
 
-  time.timeZone = "Asia/singapore";
+  #time.timeZone = "Asia/singapore";
 
   # Fonts
   fonts = {
