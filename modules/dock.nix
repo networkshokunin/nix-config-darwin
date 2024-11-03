@@ -1,24 +1,18 @@
-{
-  config,
-  pkgs,
-  lib,
-  home-manager,
-  ...
-}: let
+{ pkgs, ... }: 
+let
   user = "david";
 in {
   imports = [
     ./dock
   ];
 
-  # Fully declarative dock using the latest from Nix Store
   local = {
     dock.enable = true;
     dock.entries = [
       {path = "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app";}
       {path = "/System/Applications/Mail.app";}
       {path = "/System/Applications/Calendar.app";}
-      {path = "${pkgs.kitty}/Applications/kitty.app";}
+      {path = "${pkgs.wezterm}/Applications/wezterm.app";}
       {path = "/Applications/Signal.app/";}
       {path = "/Applications/WhatsApp.app";}
       {path = "/System/Applications/Messages.app";}

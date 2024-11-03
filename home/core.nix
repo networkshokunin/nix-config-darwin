@@ -25,7 +25,6 @@
     e2fsprogs
     alejandra
     sops
-    _1password-gui
   ];
 
   programs = {
@@ -36,6 +35,9 @@
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       initExtra = ''
+        #homebrew
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+        
         #pyenv
         export PYENV_ROOT="$HOME/.pyenv"
         [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
@@ -52,11 +54,8 @@
         bindkey "^[[1;7C" forward-word
         bindkey "^[[1;7A" backward-kill-word
         #show key codes - OSX = use ctrl v, Linux = "sudo showkey -a"
-
-        [ "$TERM" = "xterm-kitty" ] && alias ssh="kitty +kitten ssh"
       '';
       shellAliases = {
-        s = "kitten ssh";
         yoink= "open -a Yoink";
       };
     };

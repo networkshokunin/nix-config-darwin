@@ -29,13 +29,13 @@
       user = "david";
     in {
       "david-mbp14" = darwin.lib.darwinSystem {
-        system = "aarch64-darwin"; # change this to "aarch64-darwin" if you are using Apple Silicon
+        system = "aarch64-darwin";
         modules = [
           ./modules/nix-core.nix
-          ./modules/system.nix
-          ./modules/apps.nix
+          ./modules/macos.nix
+          ./modules/pkgs.nix
           ./modules/dock.nix
-          #./modules/nix-darwin-activation.nix
+          ./modules/nix-darwin-activation.nix
 
           # home manager
           home-manager.darwinModules.home-manager

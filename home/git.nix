@@ -17,8 +17,8 @@
       gpg.format = "ssh";
       gpg.ssh.program = "/Applications/1Password.app/Contents/MacOS/op-ssh-sign";
       push.autoSetupRemote = true;
-      diff.tool = "bc";
-      merge.tool = "bc";
+      #diff.tool = "bc";
+      #merge.tool = "bc";
     };
     ignores = [".direnv"];
   };
