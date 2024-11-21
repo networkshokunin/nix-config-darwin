@@ -225,3 +225,23 @@ run='move-node-to-workspace VSCode'
 [[on-window-detected]]
 if.app-id='com.1password.1password'
 run='layout floating'
+
+[[on-window-detected]]
+if.app-id='net.whatsapp.WhatsApp'
+run='layout floating'
+
+[[on-window-detected]]
+if.app-id='org.whispersystems.signal-desktop'
+run='layout floating'
+
+[[on-window-detected]]
+if.app-id='com.apple.MobileSMS'
+run='layout floating'
+
+[[on-window-detected]]
+if.app-id='com.apple.MobileSMS'
+run='layout floating'
+
+[[on-window-detected]]
+if.app-id='com.culturedcode.ThingsMac'
+run='layout floating'

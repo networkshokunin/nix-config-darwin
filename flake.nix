@@ -35,6 +35,7 @@
           ./modules/macos.nix
           ./modules/pkgs.nix
           ./modules/dock.nix
+          ./modules/homebrew.nix
           ./modules/nix-darwin-activation.nix
 
           # home manager

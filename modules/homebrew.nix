@@ -57,6 +57,7 @@
       "raindropio"
       "elgato-stream-deck"
       "nikitabobko/tap/aerospace"
+      "balenaetcher"
     ];
   };
 }

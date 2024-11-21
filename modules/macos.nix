@@ -11,18 +11,37 @@
 ###################################################################################
 {
   system = {
-    stateVersion = 4;
+    stateVersion = 5;
     # activationScripts are executed every time you boot the system or run `nixos-rebuild` / `darwin-rebuild`.
     # https://superuser.com/questions/1211108/remove-osx-spotlight-keyboard-shortcut-from-command-line
     activationScripts.postUserActivation.text = ''
-      /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.symbolichotkeys.plist \
-        -c "Set AppleSymbolicHotKeys:52:enabled bool false" \
-        -c "Set AppleSymbolicHotKeys:184:enabled bool false" \
-        -c "Set AppleSymbolicHotKeys:28:enabled bool false" \
-        -c "Set AppleSymbolicHotKeys:29:enabled bool false" \
-        -c "Set AppleSymbolicHotKeys:30:enabled bool false" \
-        -c "Set AppleSymbolicHotKeys:31:enabled bool false" 
+      ${pkgs.writeScript 'update-symbolic-hotkeys.sh' ''
+        #!/bin/sh
+        plist_path='$HOME/Library/Preferences/com.apple.symbolichotkeys.plist'
+        
+        check_and_update_key() {
+          local key='$1'
+          local plist_path='$2'
+          
+          if /usr/libexec/PlistBuddy -c 'Print :$key' '$plist_path' > /dev/null 2>&1; then
+            /usr/libexec/PlistBuddy -c 'Set :$key bool false' '$plist_path'
+            echo 'Key '$key' exists. Setting value to false.'
+          else
+            /usr/libexec/PlistBuddy -c 'Add :$key bool false' '$plist_path'
+            echo 'Key '$key' does not exist. Added key with value false.'
+          fi
+        }
+        
+        check_and_update_key 'AppleSymbolicHotKeys:52:enabled' '$plist_path'
+        check_and_update_key 'AppleSymbolicHotKeys:184:enabled' '$plist_path'
+        check_and_update_key 'AppleSymbolicHotKeys:28:enabled' '$plist_path'
+        check_and_update_key 'AppleSymbolicHotKeys:29:enabled' '$plist_path'
+        check_and_update_key 'AppleSymbolicHotKeys:30:enabled' '$plist_path'
+        check_and_update_key 'AppleSymbolicHotKeys:31:enabled' '$plist_path'
+      ''}
 
+      /bin/sh /etc/activationScripts/update-symbolic-hotkeys.sh
+      
       #52 - spolight shortcuts
       #184,28,29,30,31 - screenshot shortcuts
       defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true

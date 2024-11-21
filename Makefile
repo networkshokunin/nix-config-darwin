@@ -1,3 +1,6 @@
+up:
+	nix flake update
+
 build:
 	nix build .#darwinConfigurations.david-mbp14.system \
 	   --extra-experimental-features 'nix-command flakes'
