@@ -1,8 +1,5 @@
+{ config, pkgs, ... }:
 {
-  config,
-  pkgs,
-  ...
-}: {
   system.activationScripts.postUserActivation.text = ''
     #rsyncArgs="--archive --checksum --chmod=-w --copy-unsafe-links --delete"
     apps_source="${config.system.build.applications}/Applications"

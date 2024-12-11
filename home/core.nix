@@ -1,4 +1,5 @@
-{pkgs, ...}: {
+{ pkgs, ... }:
+{
   home.packages = with pkgs; [
     # archives
     zip
@@ -7,7 +8,7 @@
     # utils
     bat
     fx
-
+    
     # misc
     age
     which
@@ -15,7 +16,7 @@
     gnused
     gnutar
     gawk
-    gnupg
+    gnupg 
     go
     pyenv
     eza
@@ -23,10 +24,14 @@
     php
     autojump
     e2fsprogs
-    alejandra
     sops
+    nix-inspect
+    nixfmt-rfc-style
+    nixd
+    zoom-us
   ];
 
+  
   programs = {
     zsh = {
       enable = true;
@@ -37,7 +42,7 @@
       initExtra = ''
         #homebrew
         eval "$(/opt/homebrew/bin/brew shellenv)"
-        
+
         #pyenv
         export PYENV_ROOT="$HOME/.pyenv"
         [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
@@ -56,7 +61,7 @@
         #show key codes - OSX = use ctrl v, Linux = "sudo showkey -a"
       '';
       shellAliases = {
-        yoink= "open -a Yoink";
+        yoink = "open -a Yoink";
       };
     };
 
@@ -81,5 +86,6 @@
       enable = true;
       enableZshIntegration = true;
     };
+    
   };
 }

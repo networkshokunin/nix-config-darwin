@@ -1,6 +1,6 @@
-{ pkgs, ... }: {
-  environment.systemPackages = with pkgs; [
-  ];
+{ pkgs, ... }:
+{
+  environment.systemPackages = with pkgs; [ ];
 
   environment.variables = {
     EDITOR = "nvim";

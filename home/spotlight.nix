@@ -1,4 +1,10 @@
-{pkgs, config, lib, ...}: {
+{
+  pkgs,
+  config,
+  lib,
+  ...
+}:
+{
   home.activation = {
     rsync-home-manager-applications = lib.hm.dag.entryAfter [ "writeBoundary" ] ''
       rsyncArgs="--archive --checksum --chmod=-w --copy-unsafe-links --delete"

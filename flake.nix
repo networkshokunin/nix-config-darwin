@@ -15,42 +15,47 @@
     darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
-    }; 
-  };
-
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    darwin,
-    home-manager,
-    ...
-  }: {
-    darwinConfigurations = let
-      user = "david";
-    in {
-      "david-mbp14" = darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        modules = [
-          ./modules/nix-core.nix
-          ./modules/macos.nix
-          ./modules/pkgs.nix
-          ./modules/dock.nix
-          ./modules/homebrew.nix
-          ./modules/nix-darwin-activation.nix
-
-          # home manager
-          home-manager.darwinModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-
-            home-manager.extraSpecialArgs = inputs;
-            home-manager.users.${user} = import ./home;
-          }
-        ];
-      };
     };
-    # nix code formatter
-    formatter.aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.alejandra;
   };
+
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      darwin,
+      home-manager,
+      ...
+    }:
+    {
+      darwinConfigurations =
+        let
+          user = "david";
+        in
+        {
+          "david-mbp14" = darwin.lib.darwinSystem {
+            system = "aarch64-darwin";
+            modules = [
+              ./modules/nix-core.nix
+              ./modules/macos.nix
+              ./modules/pkgs.nix
+              ./modules/dock.nix
+              ./modules/homebrew.nix
+              ./modules/nix-darwin-activation.nix
+
+              # home manager
+              home-manager.darwinModules.home-manager
+              {
+                home-manager.useGlobalPkgs = true;
+                home-manager.useUserPackages = true;
+
+                home-manager.extraSpecialArgs = inputs;
+                home-manager.users.${user} = import ./home;
+              }
+            ];
+          };
+        };
+      nix.nixPath = [ "nixpkgs=${inputs.nixpkgs-darwin}" ];
+      # nix code formatter
+      formatter.aarch64-darwin = nixpkgs.legacyPackages.aarch64-darwin.nixfmt-rfc-style;
+    };
 }

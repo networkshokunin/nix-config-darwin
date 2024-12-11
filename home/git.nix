@@ -1,4 +1,5 @@
-{...}: {
+{ ... }:
+{
   programs.git = {
     enable = true;
     aliases = {
@@ -20,6 +21,6 @@
       #diff.tool = "bc";
       #merge.tool = "bc";
     };
-    ignores = [".direnv"];
+    ignores = [ ".direnv" ];
   };
 }

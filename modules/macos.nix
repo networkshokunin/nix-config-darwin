@@ -1,4 +1,4 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 ###################################################################################
 #
 #  macOS's System configuration
@@ -14,37 +14,21 @@
     stateVersion = 5;
     # activationScripts are executed every time you boot the system or run `nixos-rebuild` / `darwin-rebuild`.
     # https://superuser.com/questions/1211108/remove-osx-spotlight-keyboard-shortcut-from-command-line
+    #defaults read com.apple.symbolichotkeys AppleSymbolicHotKeys
     activationScripts.postUserActivation.text = ''
-      ${pkgs.writeScript 'update-symbolic-hotkeys.sh' ''
-        #!/bin/sh
-        plist_path='$HOME/Library/Preferences/com.apple.symbolichotkeys.plist'
-        
-        check_and_update_key() {
-          local key='$1'
-          local plist_path='$2'
-          
-          if /usr/libexec/PlistBuddy -c 'Print :$key' '$plist_path' > /dev/null 2>&1; then
-            /usr/libexec/PlistBuddy -c 'Set :$key bool false' '$plist_path'
-            echo 'Key '$key' exists. Setting value to false.'
-          else
-            /usr/libexec/PlistBuddy -c 'Add :$key bool false' '$plist_path'
-            echo 'Key '$key' does not exist. Added key with value false.'
-          fi
-        }
-        
-        check_and_update_key 'AppleSymbolicHotKeys:52:enabled' '$plist_path'
-        check_and_update_key 'AppleSymbolicHotKeys:184:enabled' '$plist_path'
-        check_and_update_key 'AppleSymbolicHotKeys:28:enabled' '$plist_path'
-        check_and_update_key 'AppleSymbolicHotKeys:29:enabled' '$plist_path'
-        check_and_update_key 'AppleSymbolicHotKeys:30:enabled' '$plist_path'
-        check_and_update_key 'AppleSymbolicHotKeys:31:enabled' '$plist_path'
-      ''}
+      /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.symbolichotkeys.plist \
+        -c "Set AppleSymbolicHotKeys:64:enabled bool false" \
+         -c "Set AppleSymbolicHotKeys:65:enabled bool false" \
+        -c "Set AppleSymbolicHotKeys:184:enabled bool false" \
+        -c "Set AppleSymbolicHotKeys:28:enabled bool false" \
+        -c "Set AppleSymbolicHotKeys:29:enabled bool false" \
+        -c "Set AppleSymbolicHotKeys:30:enabled bool false" \
+        -c "Set AppleSymbolicHotKeys:31:enabled bool false" 
 
-      /bin/sh /etc/activationScripts/update-symbolic-hotkeys.sh
-      
-      #52 - spolight shortcuts
+      #64, 65 - spolight shortcuts
       #184,28,29,30,31 - screenshot shortcuts
       defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
+      #defaults write "Apple Global Domain" AppleFirstWeekday -dict gregorian 2 # Set monday as the first 
 
       # activateSettings -u will reload the settings from the database and apply them to the current session,
       # so we do not need to logout and login again to make the changes take effect.
@@ -120,7 +104,7 @@
         NSNavPanelExpandedStateForSaveMode = true; # expand save panel by default
         NSNavPanelExpandedStateForSaveMode2 = true;
         # speed up animation on open/save boxes (default:0.2)
-        NSWindowResizeTime = 0.001;
+        NSWindowResizeTime = 1.0e-3;
         PMPrintingExpandedStateForPrint = true;
         PMPrintingExpandedStateForPrint2 = true;
       };
@@ -152,7 +136,9 @@
           FXDefaultSearchScope = "SCcf";
           FXEnableExtensionChangeWarning = false;
         };
+
         #need full disk access to the terminal app - kitty
+
         "com.apple.Safari" = {
           # Privacy: don’t send search queries to Apple
           UniversalSearchEnabled = false;
@@ -182,7 +168,7 @@
           "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabled" = false;
           "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaEnabledForLocalFiles" = false;
           "com.apple.Safari.ContentPageGroupIdentifier.WebKit2JavaScriptCanOpenWindowsAutomatically" = false;
-         };
+        };
         "com.apple.mail" = {
           # Disable inline attachments (just show the icons)
           DisableInlineAttachmentViewing = true;
@@ -205,7 +191,7 @@
           AutomaticDownload = 1;
           # Install System data files & security updates
           CriticalUpdateInstall = 1;
-         };
+        };
         "com.apple.AdLib" = {
           allowApplePersonalizedAdvertising = false;
         };
@@ -234,21 +220,15 @@
   # Create /etc/zshrc that loads the nix-darwin environment.
   # this is required if you want to use darwin's default shell - zsh
   programs.zsh.enable = true;
-  environment.shells = [
-    pkgs.zsh
-  ];
+  environment.shells = [ pkgs.zsh ];
 
   #time.timeZone = "Asia/singapore";
 
   # Fonts
   fonts = {
-      packages = with pkgs; [
+    packages = with pkgs; [
       # nerdfonts
-      (nerdfonts.override {
-        fonts = [
-          "JetBrainsMono"
-        ];
-      })
+      (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
     ];
   };
 }

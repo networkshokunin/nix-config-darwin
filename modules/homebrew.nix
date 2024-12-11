@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
 
   homebrew = {
     enable = true;
@@ -10,7 +11,6 @@
     };
 
     masApps = {
-      # TODO Feel free to add your favorite apps here.
       Whatsapp = 310633997;
       PurePaste = 1611378436;
       OnepasswordSafari = 1569813296;
@@ -20,19 +20,22 @@
       Wireguard = 1451685025;
       WirelessSGx = 1449928544;
       SinkItForReddit = 6449873635;
+      UnTrap = 1637438059;
+      SocialFocus = 1661093205;
+      StoptheMadness = 6471380298;
     };
 
-    taps = [
-    ];
+    taps = [ "nikitabobko/tap" ];
 
     brews = [
-      "wget" 
+      "wget"
       "curl" # do not install curl via nixpkgs, it's not working well on macOS!
       "php"
       "aria2"
       "gnu-sed"
       "gnu-tar"
       "git-trim"
+      "8ta4/plist/plist"
     ];
 
     casks = [
@@ -58,6 +61,7 @@
       "elgato-stream-deck"
       "nikitabobko/tap/aerospace"
       "balenaetcher"
+      "loom"
     ];
   };
 }

@@ -1,12 +1,14 @@
-{lib, ...}: let
+{ lib, ... }:
+let
   user = "david";
-in {
+in
+{
   # import sub modules
   imports = [
     ./core.nix
     ./wezterm
     ./starship.nix
-    ./aerospace
+    #./aerospace
     ./karabiner
     ./git.nix
     ./openssh.nix
