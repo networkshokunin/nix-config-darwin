@@ -28,7 +28,6 @@
     nix-inspect
     nixfmt-rfc-style
     nixd
-    zoom-us
   ];
 
   
@@ -79,13 +78,12 @@
       enable = true;
       enableZshIntegration = false;
       git = true;
-      icons = true;
+      icons = "auto";
     };
 
     fzf = {
       enable = true;
       enableZshIntegration = true;
     };
-    
   };
 }

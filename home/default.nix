@@ -14,7 +14,8 @@ in
     ./openssh.nix
     ./nnn.nix
     ./direnv.nix
-    ./spotlight.nix
+    #./spotlight.nix
+    ./trampolines.nix
   ];
 
   # Home Manager needs a bit of information about you and the
@@ -22,11 +23,10 @@ in
   home = {
     username = "${user}";
     homeDirectory = lib.mkForce "/Users/${user}";
-    stateVersion = "24.05";
+    stateVersion = "24.11";
   };
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
-
   manual.manpages.enable = false;
 }

@@ -3,6 +3,7 @@ return {
     color_scheme = 'Catppuccin Mocha',
     default_prog = { 'zsh' },
     font = wezterm.font('JetBrainsMono Nerd Font Mono'),
+    front_end = "WebGpu",
     font_size = 18.0,
     enable_tab_bar = true,
     hide_tab_bar_if_only_one_tab = true,

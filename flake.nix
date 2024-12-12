@@ -5,16 +5,22 @@
   # Each item in `inputs` will be passed as a parameter to the `outputs` function after being pulled and built.
   inputs = {
     # nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-24.05-darwin";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
 
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.05";
+      url = "github:nix-community/home-manager/release-24.11";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
     darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
+    };
+
+    wezterm = {
+      url = "github:wez/wezterm/main?dir=nix";
+      inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
@@ -40,7 +46,7 @@
               ./modules/pkgs.nix
               ./modules/dock.nix
               ./modules/homebrew.nix
-              ./modules/nix-darwin-activation.nix
+              ./modules/trampolines.nix
 
               # home manager
               home-manager.darwinModules.home-manager
@@ -48,7 +54,7 @@
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
 
-                home-manager.extraSpecialArgs = inputs;
+                home-manager.extraSpecialArgs = { inherit inputs; };
                 home-manager.users.${user} = import ./home;
               }
             ];

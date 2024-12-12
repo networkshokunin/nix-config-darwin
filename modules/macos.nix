@@ -16,19 +16,34 @@
     # https://superuser.com/questions/1211108/remove-osx-spotlight-keyboard-shortcut-from-command-line
     #defaults read com.apple.symbolichotkeys AppleSymbolicHotKeys
     activationScripts.postUserActivation.text = ''
-      /usr/libexec/PlistBuddy ~/Library/Preferences/com.apple.symbolichotkeys.plist \
-        -c "Set AppleSymbolicHotKeys:64:enabled bool false" \
-         -c "Set AppleSymbolicHotKeys:65:enabled bool false" \
-        -c "Set AppleSymbolicHotKeys:184:enabled bool false" \
-        -c "Set AppleSymbolicHotKeys:28:enabled bool false" \
-        -c "Set AppleSymbolicHotKeys:29:enabled bool false" \
-        -c "Set AppleSymbolicHotKeys:30:enabled bool false" \
-        -c "Set AppleSymbolicHotKeys:31:enabled bool false" 
+        plist_path="$HOME/Library/Preferences/com.apple.symbolichotkeys.plist"
+        
+        check_and_update_key() {
+          local key="$1"
+          local plist_path="$2"
+
+          if /usr/libexec/PlistBuddy -c "print $key" "$plist_path" | grep -q 'Not Exist'; then
+            echo "Key $key does not exist. Added key with value false."
+            /usr/libexec/PlistBuddy -c "Add :$key:enabled bool false" "$plist_path"
+          else
+            echo "Key $key exists. Setting value to false."
+            /usr/libexec/PlistBuddy -c "Set :$key:enabled bool false" "$plist_path"
+          fi
+        }
+       
+        #spotlight shortcuts
+        check_and_update_key "AppleSymbolicHotKeys:64" "$plist_path" 
+        check_and_update_key "AppleSymbolicHotKeys:65" "$plist_path"
+
+        #screenshot shortcuts
+        check_and_update_key "AppleSymbolicHotKeys:184" "$plist_path"
+        check_and_update_key "AppleSymbolicHotKeys:28" "$plist_path"
+        check_and_update_key "AppleSymbolicHotKeys:29" "$plist_path"
+        check_and_update_key "AppleSymbolicHotKeys:30" "$plist_path"
+        check_and_update_key "AppleSymbolicHotKeys:31" "$plist_path"
 
       #64, 65 - spolight shortcuts
       #184,28,29,30,31 - screenshot shortcuts
-      defaults write com.apple.NetworkBrowser BrowseAllInterfaces -bool true
-      #defaults write "Apple Global Domain" AppleFirstWeekday -dict gregorian 2 # Set monday as the first 
 
       # activateSettings -u will reload the settings from the database and apply them to the current session,
       # so we do not need to logout and login again to make the changes take effect.
@@ -46,7 +61,7 @@
         show-process-indicators = true;
         appswitcher-all-displays = true; # display the appswitcher on all displays or only the main one
         dashboard-in-overlay = true; # hide Dashboard as a Space
-        expose-group-by-app = true; # group windows by application in Mission Control’s Exposé
+        expose-group-apps = true; # group windows by application in Mission Control’s Exposé
         launchanim = false; # Animate opening applications from the Dock
         minimize-to-application = true; # minimize windows into their application icon
         mru-spaces = true; # automatically rearrange spaces based on most recent use
