@@ -10,8 +10,9 @@ in
     dock.entries = [
       { path = "/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app"; }
       { path = "/System/Applications/Mail.app"; }
+      { path = "/System/Applications/Reminders.app"; }
       { path = "/System/Applications/Calendar.app"; }
-      { path = "${pkgs.wezterm}/Applications/Wezterm.app"; }
+      #{ path = "${pkgs.wezterm}/Applications/Wezterm.app"; }
       { path = "/Applications/Visual\ Studio\ Code.app"; }
       { path = "/Applications/Signal.app"; }
       { path = "/Applications/WhatsApp.app"; }

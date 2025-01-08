@@ -28,6 +28,9 @@
     nix-inspect
     nixfmt-rfc-style
     nixd
+    arc-browser
+    qpdf
+    awscli2
   ];
 
   
@@ -54,10 +57,10 @@
           cd "$(cat /Users/david/Library/autojump/autojump.txt | cut -f2 | sed 's|^/Users/david|~|' | fzf | sed 's|^~|/Users/david|')"
         }
 
-        bindkey "^[[1;7D" backward-word
-        bindkey "^[[1;7C" forward-word
-        bindkey "^[[1;7A" backward-kill-word
-        #show key codes - OSX = use ctrl v, Linux = "sudo showkey -a"
+        bindkey "^[[1;4D" backward-word
+        bindkey "^[[1;4C" forward-word
+        bindkey "^[[1;4A" backward-kill-word
+        #show key codes - OSX = use "cat -vte", Linux = "sudo showkey -a"
       '';
       shellAliases = {
         yoink = "open -a Yoink";

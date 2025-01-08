@@ -16,35 +16,34 @@
     # https://superuser.com/questions/1211108/remove-osx-spotlight-keyboard-shortcut-from-command-line
     #defaults read com.apple.symbolichotkeys AppleSymbolicHotKeys
     activationScripts.postUserActivation.text = ''
+        #!/bin/bash
         plist_path="$HOME/Library/Preferences/com.apple.symbolichotkeys.plist"
         
-        check_and_update_key() {
+        add_and_update_key() {
           local key="$1"
           local plist_path="$2"
 
-          if /usr/libexec/PlistBuddy -c "print $key" "$plist_path" | grep -q 'Not Exist'; then
-            echo "Key $key does not exist. Added key with value false."
-            /usr/libexec/PlistBuddy -c "Add :$key:enabled bool false" "$plist_path"
-          else
-            echo "Key $key exists. Setting value to false."
-            /usr/libexec/PlistBuddy -c "Set :$key:enabled bool false" "$plist_path"
-          fi
+          /usr/libexec/PlistBuddy -c "Delete $key" "$plist_path"
+          /usr/libexec/PlistBuddy -c "Add :$key:enabled bool false" "$plist_path"
         }
        
         #spotlight shortcuts
-        check_and_update_key "AppleSymbolicHotKeys:64" "$plist_path" 
-        check_and_update_key "AppleSymbolicHotKeys:65" "$plist_path"
+        add_and_update_key "AppleSymbolicHotKeys:64" "$plist_path" 
+        add_and_update_key "AppleSymbolicHotKeys:65" "$plist_path"
 
         #screenshot shortcuts
-        check_and_update_key "AppleSymbolicHotKeys:184" "$plist_path"
-        check_and_update_key "AppleSymbolicHotKeys:28" "$plist_path"
-        check_and_update_key "AppleSymbolicHotKeys:29" "$plist_path"
-        check_and_update_key "AppleSymbolicHotKeys:30" "$plist_path"
-        check_and_update_key "AppleSymbolicHotKeys:31" "$plist_path"
+        add_and_update_key "AppleSymbolicHotKeys:184" "$plist_path"
+        add_and_update_key "AppleSymbolicHotKeys:28" "$plist_path"
+        add_and_update_key "AppleSymbolicHotKeys:29" "$plist_path"
+        add_and_update_key "AppleSymbolicHotKeys:30" "$plist_path"
+        add_and_update_key "AppleSymbolicHotKeys:31" "$plist_path"
 
       #64, 65 - spolight shortcuts
       #184,28,29,30,31 - screenshot shortcuts
 
+      #increase cursor size
+      /usr/libexec/PlistBuddy -c "Delete ':mouseDriverCursorSize'" -c "Add ':mouseDriverCursorSize' real '1.982021'" "$HOME/Library/Preferences/com.apple.universalaccess.plist"
+      
       # activateSettings -u will reload the settings from the database and apply them to the current session,
       # so we do not need to logout and login again to make the changes take effect.
 
@@ -83,6 +82,8 @@
         QuitMenuItem = true; # enable quit menu item
         ShowPathbar = true; # show path bar
         ShowStatusBar = true; # show status bar
+        NewWindowTarget = "Other"; 
+        NewWindowTargetPath =  "file:///Users/david/Downloads/"; #Set default location to Downloads folder
       };
 
       # trackpad
@@ -155,6 +156,11 @@
         #need full disk access to the terminal app - kitty
 
         "com.apple.Safari" = {
+          AlwaysRestoreSessionAtLaunch = true;
+          ExcludePrivateWindowWhenRestoringSessionAtLaunch = true;
+          NewWindowBehavior = 1;
+          NewTabBehavior = 1;
+          TabCreationPolicy	= 2; #Always open in tabs
           # Privacy: don’t send search queries to Apple
           UniversalSearchEnabled = false;
           SuppressSearchSuggestions = true;

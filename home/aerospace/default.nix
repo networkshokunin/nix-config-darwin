@@ -3,7 +3,7 @@
   home.file.".aerospace.toml" = {
     source = ./config.toml;
     onChange = ''
-      /opt/homebrew/bin/aerospace reload-config
+      /etc/profiles/per-user/david/bin/aerospace reload-config
     '';
   };
 }

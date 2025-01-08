@@ -5,7 +5,7 @@
   # Each item in `inputs` will be passed as a parameter to the `outputs` function after being pulled and built.
   inputs = {
     # nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
     nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
 
     home-manager = {
@@ -18,10 +18,6 @@
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
-    wezterm = {
-      url = "github:wez/wezterm/main?dir=nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
   };
 
   outputs =
@@ -38,6 +34,8 @@
           user = "david";
         in
         {
+          overlays = import ./overlays {inherit inputs;};
+
           "david-mbp14" = darwin.lib.darwinSystem {
             system = "aarch64-darwin";
             modules = [

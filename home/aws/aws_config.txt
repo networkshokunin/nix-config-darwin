@@ -1,0 +1,7 @@
+[gen]
+credential_process = sh -c 'echo "{\"Version\": 1,\"AccessKeyId\": \"$(op item get wmkgrroeaq5dl2pxutcgs5evzy --fields label="access key id")\",\"SecretAccessKey\": \"$(op item get wmkgrroeaq5dl2pxutcgs5evzy --fields label="secret access key" --reveal)\"}" '
+
+[prod]
+credential_process = sh -c 'echo "{\"Version\": 1,\"AccessKeyId\": \"$(op item get y3qrdwsncttr5rn7wuqzuy5cx4 --fields label="access key id")\",\"SecretAccessKey\": \"$(op item get y3qrdwsncttr5rn7wuqzuy5cx4 --fields label="secret access key" --reveal)\"}" '
+
+
