@@ -139,6 +139,14 @@
                             },
                             {
                                 "from": {
+                                    "key_code": "close_bracket",
+                                    "modifiers": { "mandatory": ["right_command", "right_control", "right_option", "right_shift"] }
+                                },
+                                "to": [{ "shell_command": "open -a Ghostty.app" }],
+                                "type": "basic"
+                            },
+                            {
+                                "from": {
                                     "key_code": "left_shift",
                                     "modifiers": { "mandatory": ["right_command", "right_control", "right_option", "right_shift"] }
                                 },

@@ -6,17 +6,15 @@ in
   # import sub modules
   imports = [
     ./core.nix
-    #./wezterm
     ./starship.nix
-    #./aerospace
     ./git.nix
     ./openssh.nix
     ./nnn.nix
     ./direnv.nix
-    ./trampolines.nix
     ./icloud.nix
     ./karabiner
     ./aws
+    ./ghostty
   ];
 
   # Home Manager needs a bit of information about you and the

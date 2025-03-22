@@ -4,12 +4,10 @@
   # This is the standard format for flake.nix. `inputs` are the dependencies of the flake,
   # Each item in `inputs` will be passed as a parameter to the `outputs` function after being pulled and built.
   inputs = {
-    # nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
-    nixpkgs-unstable.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-24.11-darwin";
-
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixos-unstable";
+    
     home-manager = {
-      url = "github:nix-community/home-manager/release-24.11";
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
@@ -17,6 +15,13 @@
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
+
+    nix-index-database = {
+      url = "github:nix-community/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    mac-app-util.url = "github:hraban/mac-app-util";
 
   };
 
@@ -26,6 +31,8 @@
       nixpkgs,
       darwin,
       home-manager,
+      nix-index-database,
+      mac-app-util,
       ...
     }:
     {
@@ -39,21 +46,27 @@
           "david-mbp14" = darwin.lib.darwinSystem {
             system = "aarch64-darwin";
             modules = [
+              mac-app-util.darwinModules.default
               ./modules/nix-core.nix
               ./modules/macos.nix
               ./modules/pkgs.nix
               ./modules/dock.nix
               ./modules/homebrew.nix
-              ./modules/trampolines.nix
+              nix-index-database.darwinModules.nix-index
+
 
               # home manager
               home-manager.darwinModules.home-manager
               {
+                home-manager.sharedModules = [
+                  mac-app-util.homeManagerModules.default
+                  nix-index-database.hmModules.nix-index
+                ];
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;
-
                 home-manager.extraSpecialArgs = { inherit inputs; };
                 home-manager.users.${user} = import ./home;
+
               }
             ];
           };

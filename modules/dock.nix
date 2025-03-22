@@ -12,6 +12,7 @@ in
       { path = "/System/Applications/Mail.app"; }
       { path = "/System/Applications/Reminders.app"; }
       { path = "/System/Applications/Calendar.app"; }
+      { path = "/Applications/Ghostty.app"; }
       #{ path = "${pkgs.wezterm}/Applications/Wezterm.app"; }
       { path = "/Applications/Visual\ Studio\ Code.app"; }
       { path = "/Applications/Signal.app"; }

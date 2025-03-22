@@ -31,6 +31,7 @@
     arc-browser
     qpdf
     awscli2
+    xz
   ];
 
   

@@ -3,7 +3,6 @@
 
   homebrew = {
     enable = true;
-
     onActivation = {
       autoUpdate = true;
       upgrade = true;
@@ -23,6 +22,7 @@
       SocialFocus = 1661093205;
       StoptheMadness = 6471380298;
       SuperAgent = 1568262835;
+      AccerlerateForSafari = 1459809092;
     };
 
     taps = [ "8ta4/plist" ];
@@ -42,8 +42,6 @@
       "alfred"
       "signal"
       "setapp"
-      #"beyond-compare"
-      #"showmeyourhotkeys"
       "thingsmacsandboxhelper"
       "keyboardcleantool"
       "appcleaner"
@@ -51,11 +49,11 @@
       "obsidian"
       "cleanclip"
       #"ledger-live"
-      #"topnotch"
       "raindropio"
       #"elgato-stream-deck"
       "keyboard-maestro"
       "rectangle-pro"
+      "ghostty"
     ];
   };
 }
