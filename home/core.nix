@@ -32,6 +32,7 @@
     qpdf
     awscli2
     xz
+    proxmark3
   ];
 
   
@@ -42,7 +43,7 @@
       completionInit = "autoload -U compinit && compinit\nsource ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh";
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
-      initExtra = ''
+      initContent = ''
         #homebrew
         eval "$(/opt/homebrew/bin/brew shellenv)"
 

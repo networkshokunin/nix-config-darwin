@@ -1,4 +1,7 @@
 { ... }:
+let
+  mkGreedy = caskName: { name = caskName; greedy = true; };
+in
 {
 
   homebrew = {
@@ -16,7 +19,6 @@
       Things3 = 904280696;
       Raindrop_Safari_Extension = 1549370672;
       Wireguard = 1451685025;
-      #WirelessSGx = 1449928544;
       SinkItForReddit = 6449873635;
       UnTrap = 1637438059;
       SocialFocus = 1661093205;
@@ -35,11 +37,12 @@
       "8ta4/plist/plist" #https://github.com/8ta4/plist
     ];
 
-    casks = [
+    #https://github.com/nix-darwin/nix-darwin/issues/935#issuecomment-2096813988
+    casks =  map mkGreedy [
+      "alfred"
       "visual-studio-code"
       "1password"
       "1password-cli"
-      "alfred"
       "signal"
       "setapp"
       "thingsmacsandboxhelper"
@@ -54,6 +57,8 @@
       "keyboard-maestro"
       "rectangle-pro"
       "ghostty"
+      "jump-desktop-connect"
     ];
+    
   };
 }
