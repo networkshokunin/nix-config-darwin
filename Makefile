@@ -1,8 +1,17 @@
 up:
 	nix flake update
 
-build:
-	nix build .#darwinConfigurations.david-mbp14.system \
-	   --extra-experimental-features 'nix-command flakes'
+# remove all generations older than 7 days
+clean:
+	sudo nix profile wipe-history --profile /nix/var/nix/profiles/system  --older-than 7d
 
-	./result/sw/bin/darwin-rebuild switch --flake .#david-mbp14
+# Garbage collect all unused nix store entries
+gc:
+	# garbage collect all unused nix store entries
+	sudo nix profile wipe-history --profile /nix/var/nix/profiles/system  --older-than 3d
+	sudo nix-collect-garbage --delete-older-than 3d
+	nix-collect-garbage --delete-older-than 3d
+
+build:
+	sudo darwin-rebuild switch --flake .#david-mbp14
+	sudo ./result/sw/bin/darwin-rebuild switch --flake .#david-mbp14

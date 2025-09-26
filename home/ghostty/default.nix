@@ -17,7 +17,8 @@ in
       font-family = "JetBrainsMonoNL Nerd Font Mono";
       font-size = 18;
       window-save-state = "always";
-      theme = "catppuccin-mocha";
+      theme = "Catppuccin Mocha";
+      working-directory = "home";
       };
   };
 }

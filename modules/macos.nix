@@ -12,10 +12,11 @@
 {
   system = {
     stateVersion = 5;
+    primaryUser = "david";
     # activationScripts are executed every time you boot the system or run `nixos-rebuild` / `darwin-rebuild`.
     # https://superuser.com/questions/1211108/remove-osx-spotlight-keyboard-shortcut-from-command-line
     #defaults read com.apple.symbolichotkeys AppleSymbolicHotKeys
-    activationScripts.postUserActivation.text = ''
+    activationScripts.activateSettings.text = ''
         #!/bin/bash
         plist_path="$HOME/Library/Preferences/com.apple.symbolichotkeys.plist"
         

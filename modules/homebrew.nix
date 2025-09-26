@@ -45,7 +45,7 @@ in
       "1password-cli"
       "signal"
       "setapp"
-      "thingsmacsandboxhelper"
+      #"thingsmacsandboxhelper"
       "keyboardcleantool"
       "appcleaner"
       "karabiner-elements"

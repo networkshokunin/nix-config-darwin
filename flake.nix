@@ -60,7 +60,7 @@
               {
                 home-manager.sharedModules = [
                   mac-app-util.homeManagerModules.default
-                  nix-index-database.hmModules.nix-index
+                  nix-index-database.homeModules.nix-index
                 ];
                 home-manager.useGlobalPkgs = true;
                 home-manager.useUserPackages = true;

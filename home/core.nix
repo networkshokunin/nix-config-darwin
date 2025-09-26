@@ -28,11 +28,12 @@
     nix-inspect
     nixfmt-rfc-style
     nixd
-    arc-browser
+    #arc-browser
     qpdf
     awscli2
     xz
     proxmark3
+    brave
   ];
 
   
