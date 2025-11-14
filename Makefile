@@ -14,4 +14,6 @@ gc:
 
 build:
 	sudo darwin-rebuild switch --flake .#david-mbp14
-	sudo ./result/sw/bin/darwin-rebuild switch --flake .#david-mbp14
+
+upgrade:
+	sudo determinate-nixd upgrade
